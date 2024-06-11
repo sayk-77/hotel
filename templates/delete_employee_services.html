@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Удалить историю услуг</h2>
+<p>Вы уверены, что хотите удалить историю услуг  {{ employee_service.employee.first_name }} {{ employee_service.employee.last_name }} и {{ employee_service.service.name }}?</p>
+<form method="post">
+    <button type="submit" class="btn btn-red">Удалить</button>
+    <a href="{{ url_for('list_employee_services') }}" class="btn btn-blue">Отмена</a>
+</form>
+{% endblock %}

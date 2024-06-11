@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Редактировать бронирование</h2>
+<form method="post">
+    <label for="booking_number">Номер бронирования:</label>
+    <input type="text" name="booking_number" id="booking_number" value="{{ booking.booking_number }}" required>
+    <br>
+    <label for="booking_date">Дата бронирования:</label>
+    <input type="date" name="booking_date" id="booking_date" value="{{ booking.booking_date }}" required>
+    <br>
+    <label for="guest_id">Гость:</label>
+    <select name="guest_id" id="guest_id" required>
+        {% for guest in guests %}
+        <option value="{{ guest.id }}" {% if guest.id == booking.guest_id %}selected{% endif %}>{{ guest.first_name }} {{ guest.last_name }}</option>
+        {% endfor %}
+    </select>
+    <br>
+    <label for="room_id">Номер комнаты:</label>
+    <select name="room_id" id="room_id" required>
+        {% for room in rooms %}
+        <option value="{{ room.id }}" {% if room.id == booking.room_id %}selected{% endif %}>{{ room.room_number }}</option>
+        {% endfor %}
+    </select>
+    <br>
+    <button type="submit">Обновить бронирование</button>
+</form>
+{% endblock %}

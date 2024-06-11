@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>История услуг</h2>
+<form method="post">
+    <label for="employee_id">Сотрудник:</label>
+    <select name="employee_id" id="employee_id" required>
+        {% for employee in employees %}
+        <option value="{{ employee.id }}" {% if employee.id == employee_service.employee_id %}selected{% endif %}>{{ employee.first_name }} {{ employee.last_name }}</option>
+        {% endfor %}
+    </select>
+    <br>
+    <label for="service_id">Услуга:</label>
+    <select name="service_id" id="service_id" required>
+        {% for service in services %}
+        <option value="{{ service.id }}" {% if service.id == employee_service.service_id %}selected{% endif %}>{{ service.name }}</option>
+        {% endfor %}
+    </select>
+    <br>
+    <button type="submit">Обновить</button>
+</form>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Добавить гостя</h2>
+<form method="post">
+    <label for="first_name">Имя:</label>
+    <input type="text" name="first_name" id="first_name" required>
+    <br>
+    <label for="last_name">Фамилия:</label>
+    <input type="text" name="last_name" id="last_name" required>
+    <br>
+    <label for="contact_info">Контактная информация:</label>
+    <input type="text" name="contact_info" id="contact_info" required>
+    <br>
+    <label for="country">Страна:</label>
+    <input type="text" name="country" id="country" required>
+    <br>
+    <label for="id_document">Документ:</label>
+    <input type="text" name="id_document" id="id_document" required>
+    <br>
+    <label for="check_in_out_date">Дата въезда/выезда:</label>
+    <input type="date" name="check_in_out_date" id="check_in_out_date" required>
+    <br>
+    <button type="submit">Добавить гостя</button>
+</form>
+{% endblock %}

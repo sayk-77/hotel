@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Удалить гостя</h2>
+<p>Вы уверены, что хотите удалить гостя {{ guest.first_name }} {{ guest.last_name }}?</p>
+<form method="post">
+    <button type="submit" class="btn btn-red">Удалить</button>
+    <a href="{{ url_for('list_guests') }}" class="btn btn-blue">Отмена</a>
+</form>
+{% endblock %}

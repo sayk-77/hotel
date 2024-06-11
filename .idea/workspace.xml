@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="554c19c6-de00-4445-88c1-f0c9ddfb2d00" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/Hotel.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/123.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/booking.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/employee.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/employee_service.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/guest.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/hotel_rooms.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/role.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/sale.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/service.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/user.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/routes/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/routes/booking_routes.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/routes/employee_routes.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/routes/employee_service_routes.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/routes/export_routes.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/routes/guest_routes.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/routes/service_routes.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/routes/user_routes.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/styles.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/add_booking.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/add_employee.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/add_employee_services.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/add_guest.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/add_services.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/add_user.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/delete_booking.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/delete_employee.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/delete_employee_services.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/delete_guest.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/delete_services.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/edit_booking.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/edit_employee.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/edit_employee_services.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/edit_guest.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/edit_services.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/export_select.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/list_booking.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/list_employee_services.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/list_guests.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/list_services.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/list_users.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/login.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/search_result.html" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Flask Main" />
+        <option value="CSS File" />
+        <option value="Python Script" />
+        <option value="HTML File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
+  <component name="ProjectId" id="2h6E9AQRSUeG4F9MMt51korKorq" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;Flask server.Flask (app.py).executor&quot;: &quot;Run&quot;,
+    &quot;Flask server.Hotel.executor&quot;: &quot;Run&quot;,
+    &quot;Python.123.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/nikita/PycharmProjects/Hotel&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RunManager" selected="Flask server.Flask (app.py)">
+    <configuration name="123" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Hotel" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/123.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Flask (app.py)" type="Python.FlaskServer" temporary="true" nameIsGenerated="true">
+      <module name="Hotel" />
+      <option name="target" value="$PROJECT_DIR$/app.py" />
+      <option name="targetType" value="PATH" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Hotel" type="Python.FlaskServer">
+      <module name="Hotel" />
+      <option name="target" value="$PROJECT_DIR$/app.py" />
+      <option name="targetType" value="PATH" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Flask server.Flask (app.py)" />
+        <item itemvalue="Python.123" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-1d06a55b98c1-91d5c284f522-JavaScript-PY-241.15989.155" />
+        <option value="bundled-python-sdk-babbdf50b680-7c6932dee5e4-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-241.15989.155" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="554c19c6-de00-4445-88c1-f0c9ddfb2d00" name="Changes" comment="" />
+      <created>1716905972747</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1716905972747</updated>
+      <workItem from="1716905974080" duration="9371000" />
+      <workItem from="1716918606834" duration="379000" />
+      <workItem from="1717005917167" duration="2000" />
+      <workItem from="1717073752395" duration="13000" />
+      <workItem from="1717339187323" duration="663000" />
+      <workItem from="1717511772635" duration="12000" />
+      <workItem from="1718114009026" duration="1187000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/Hotel$123.coverage" NAME="123 Coverage Results" MODIFIED="1716910927410" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Hotel$Hotel.coverage" NAME="Hotel Coverage Results" MODIFIED="1716910710644" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Hotel$Flask__app_py_.coverage" NAME="Flask (app.py) Coverage Results" MODIFIED="1718115351391" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+  </component>
+</project>
