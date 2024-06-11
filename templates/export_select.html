@@ -1,17 +1,19 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2>Выбор таблицы для экспорта</h2>
-<form method="post">
+<h2>Поиск по таблицам</h2>
+<form action="{{ url_for('search') }}" method="POST">
     <label for="table">Выберите таблицу:</label>
     <select name="table" id="table" required>
         <option value="employees">Сотрудники</option>
         <option value="guests">Гости</option>
         <option value="services">Услуги</option>
         <option value="bookings">Бронирования</option>
-        <option value="employee_services">Связи сотрудник-услуга</option>
+        <option value="employee_services">История услуг</option>
     </select>
     <br>
-    <button type="submit">Экспортировать</button>
+    <input type="text" name="query" placeholder="Поиск">
+    <br>
+    <button type="submit">Искать</button>
 </form>
 {% endblock %}

@@ -1,4 +1,6 @@
-from flask import Flask, render_template, request, redirect, url_for, flash, abort
+from flask import Flask, render_template, request, redirect, url_for, flash, abort, send_file
+from sqlalchemy import or_
+
 from config import Config
 from models import db, Employee, Service, Guest, HotelRooms, Booking, Sale, EmployeeService, User, Role
 import pandas as pd
@@ -6,6 +8,8 @@ import pandas as pd
 from flask_migrate import Migrate
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from functools import wraps
+
+from names import column_names
 
 app = Flask(__name__)
 app.config.from_object(Config)
@@ -15,14 +19,17 @@ migrate = Migrate(app, db)
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
 
+
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
+
 
 @login_manager.unauthorized_handler
 def unauthorized_callback():
     flash('Пожалуйста, войдите, чтобы получить доступ к этой странице.', 'warning')
     return redirect(url_for('login'))
+
 
 def role_required(role):
     def wrapper(f):
@@ -32,8 +39,11 @@ def role_required(role):
                 flash('У вас нет доступа к этому ресурсу.', 'error')
                 return redirect(request.referrer or url_for('index'))
             return f(*args, **kwargs)
+
         return decorated_function
+
     return wrapper
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -47,17 +57,20 @@ def login():
         flash('Неверное имя пользователя или пароль', 'error')
     return render_template('login.html')
 
+
 @app.route('/logout')
 @login_required
 def logout():
     logout_user()
     return redirect(url_for('login'))
 
+
 @app.route('/')
 @login_required
 def index():
     employees = Employee.query.all()
     return render_template('index.html', employees=employees)
+
 
 @app.route('/add_employee', methods=['GET', 'POST'])
 @login_required
@@ -70,12 +83,14 @@ def add_employee():
         hire_date = request.form['hire_date']
         salary = request.form['salary']
         contact_info = request.form['contact_info']
-        new_employee = Employee(first_name=first_name, last_name=last_name, position=position, hire_date=hire_date, salary=salary, contact_info=contact_info)
+        new_employee = Employee(first_name=first_name, last_name=last_name, position=position, hire_date=hire_date,
+                                salary=salary, contact_info=contact_info)
         db.session.add(new_employee)
         db.session.commit()
         flash('Сотрудник успешно добавлен!', 'success')
         return redirect(url_for('index'))
     return render_template('add_employee.html')
+
 
 @app.route('/edit_employee/<int:id>', methods=['GET', 'POST'])
 @login_required
@@ -94,6 +109,7 @@ def edit_employee(id):
         return redirect(url_for('index'))
     return render_template('edit_employee.html', employee=employee)
 
+
 @app.route('/delete_employee/<int:id>', methods=['GET', 'POST'])
 @login_required
 @role_required('admin')
@@ -107,14 +123,61 @@ def delete_employee(id):
         return redirect(url_for('index'))
     return render_template('delete_employee.html', employee=employee)
 
+
+@app.template_filter('getattr')
+def getattr_filter(obj, name):
+    return getattr(obj, name)
+
+
+def create_search_query(model, search_query):
+    columns = model.__table__.columns
+    filters = [column.contains(search_query) for column in columns if column.type.python_type == str]
+    return model.query.filter(or_(*filters)).all()
+
+
 @app.route('/search', methods=['GET', 'POST'])
 @login_required
 def search():
+    results = []
+    columns = []
+    table_name = ""
+
     if request.method == 'POST':
-        search_query = request.form['search_query']
-        results = Employee.query.filter(Employee.first_name.contains(search_query) | Employee.last_name.contains(search_query)).all()
-        return render_template('search_result.html', results=results)
-    return redirect(url_for('index'))
+        search_query = request.form['query']
+        table = request.form['table']
+        table_name = table
+
+        if table == 'employees':
+            results = create_search_query(Employee, search_query)
+            columns = [column.name for column in Employee.__table__.columns]
+        elif table == 'guests':
+            results = create_search_query(Guest, search_query)
+            columns = [column.name for column in Guest.__table__.columns]
+        elif table == 'services':
+            results = create_search_query(Service, search_query)
+            columns = [column.name for column in Service.__table__.columns]
+        elif table == 'bookings':
+            results = create_search_query(Booking, search_query)
+            columns = [column.name for column in Booking.__table__.columns]
+        elif table == 'employee_services':
+            results = create_search_query(EmployeeService, search_query)
+            columns = [column.name for column in EmployeeService.__table__.columns]
+        elif table == 'hotel_rooms':
+            results = create_search_query(HotelRooms, search_query)
+            columns = [column.name for column in HotelRooms.__table__.columns]
+        elif table == 'roles':
+            results = create_search_query(Role, search_query)
+            columns = [column.name for column in Role.__table__.columns]
+        elif table == 'sales':
+            results = create_search_query(Sale, search_query)
+            columns = [column.name for column in Sale.__table__.columns]
+        elif table == 'users':
+            results = create_search_query(User, search_query)
+            columns = [column.name for column in User.__table__.columns]
+
+    return render_template('search_result.html', results=results, columns=columns, column_names=column_names,
+                           table_name=table_name)
+
 
 def dataframe_to_csv_response(df, filename):
     csv_data = df.to_csv(index=False, encoding='utf-8')
@@ -125,40 +188,24 @@ def dataframe_to_csv_response(df, filename):
     )
     return response
 
-@app.route('/export_csv', methods=['GET', 'POST'])
+
+@app.route('/export_csv', methods=['POST', 'GET'])
 @login_required
 def export_csv():
     if request.method == 'POST':
-        table_name = request.form['table']
-        if table_name == 'employees':
-            employees = Employee.query.all()
-            data = [{"ID": emp.id, "FirstName": emp.first_name, "LastName": emp.last_name, "Position": emp.position, "HireDate": emp.hire_date, "Salary": emp.salary, "ContactInfo": emp.contact_info} for emp in employees]
-            df = pd.DataFrame(data)
-            return dataframe_to_csv_response(df, 'employees.csv')
-        elif table_name == 'guests':
-            guests = Guest.query.all()
-            data = [{"ID": guest.id, "FirstName": guest.first_name, "LastName": guest.last_name, "ContactInfo": guest.contact_info, "Country": guest.country, "IDDocument": guest.document, "CheckInOutDate": guest.check_in_out_date} for guest in guests]
-            df = pd.DataFrame(data)
-            return dataframe_to_csv_response(df, 'guests.csv')
-        elif table_name == 'services':
-            services = Service.query.all()
-            data = [{"ID": service.id, "Name": service.name, "Description": service.description} for service in services]
-            df = pd.DataFrame(data)
-            return dataframe_to_csv_response(df, 'services.csv')
-        elif table_name == 'bookings':
-            bookings = Booking.query.all()
-            data = [{"ID": booking.id, "BookingNumber": booking.booking_number, "BookingDate": booking.booking_date, "GuestID": booking.guest_id, "RoomID": booking.room_id} for booking in bookings]
-            df = pd.DataFrame(data)
-            return dataframe_to_csv_response(df, 'bookings.csv')
-        elif table_name == 'employee_services':
-            employee_services = EmployeeService.query.all()
-            data = [{"EmployeeID": es.employee_id, "ServiceID": es.service_id} for es in employee_services]
-            df = pd.DataFrame(data)
-            return dataframe_to_csv_response(df, 'employee_services.csv')
-        else:
-            flash('Неверное название таблицы', 'error')
-            return redirect(url_for('export_bp.export_csv'))
+        data_dict = request.form.to_dict(flat=False)
+        columns = data_dict['columns'][0].split(',')
+        results = [data_dict[f'results[{i}]'] for i in range(len(columns))]
+
+        df = pd.DataFrame(results).transpose()
+        df.columns = columns
+
+        df.to_csv('export.csv', index=False)
+
+        return send_file('export.csv', as_attachment=True)
+
     return render_template('export_select.html')
+
 
 @app.route('/add_user', methods=['GET', 'POST'])
 @login_required
@@ -178,12 +225,14 @@ def add_user():
     roles = Role.query.all()
     return render_template('add_user.html', roles=roles)
 
+
 @app.route('/users')
 @login_required
 @role_required('admin')
 def list_users():
     users = User.query.all()
     return render_template('list_users.html', users=users)
+
 
 @app.route('/delete_user/<int:id>', methods=['POST'])
 @login_required
@@ -195,11 +244,13 @@ def delete_user(id):
     flash('Пользователь успешно удален!', 'success')
     return redirect(url_for('list_users'))
 
+
 @app.route('/guests')
 @login_required
 def list_guests():
     guests = Guest.query.all()
     return render_template('list_guests.html', guests=guests)
+
 
 @app.route('/add_guest', methods=['GET', 'POST'])
 @login_required
@@ -212,12 +263,14 @@ def add_guest():
         country = request.form['country']
         id_document = request.form['id_document']
         check_in_out_date = request.form['check_in_out_date']
-        new_guest = Guest(first_name=first_name, last_name=last_name, contact_info=contact_info, country=country, id_document=id_document, check_in_out_date=check_in_out_date)
+        new_guest = Guest(first_name=first_name, last_name=last_name, contact_info=contact_info, country=country,
+                          id_document=id_document, check_in_out_date=check_in_out_date)
         db.session.add(new_guest)
         db.session.commit()
         flash('Гость успешно добавлен!', 'success')
         return redirect(url_for('list_guests'))
     return render_template('add_guest.html')
+
 
 @app.route('/edit_guest/<int:id>', methods=['GET', 'POST'])
 @login_required
@@ -236,6 +289,7 @@ def edit_guest(id):
         return redirect(url_for('list_guests'))
     return render_template('edit_guest.html', guest=guest)
 
+
 @app.route('/delete_guest/<int:id>', methods=['GET', 'POST'])
 @login_required
 @role_required('admin')
@@ -248,11 +302,13 @@ def delete_guest(id):
         return redirect(url_for('list_guests'))
     return render_template('delete_guest.html', guest=guest)
 
+
 @app.route('/services')
 @login_required
 def list_services():
     services = Service.query.all()
     return render_template('list_services.html', services=services)
+
 
 @app.route('/add_service', methods=['GET', 'POST'])
 @login_required
@@ -268,6 +324,7 @@ def add_service():
         return redirect(url_for('list_services'))
     return render_template('add_services.html')
 
+
 @app.route('/edit_service/<int:id>', methods=['GET', 'POST'])
 @login_required
 @role_required('admin')
@@ -281,6 +338,7 @@ def edit_service(id):
         return redirect(url_for('list_services'))
     return render_template('edit_services.html', service=service)
 
+
 @app.route('/delete_service/<int:id>', methods=['GET', 'POST'])
 @login_required
 @role_required('admin')
@@ -293,11 +351,13 @@ def delete_service(id):
         return redirect(url_for('list_services'))
     return render_template('delete_services.html', service=service)
 
+
 @app.route('/bookings')
 @login_required
 def list_bookings():
     bookings = Booking.query.all()
     return render_template('list_booking.html', bookings=bookings)
+
 
 @app.route('/add_booking', methods=['GET', 'POST'])
 @login_required
@@ -308,7 +368,8 @@ def add_booking():
         booking_date = request.form['booking_date']
         guest_id = request.form['guest_id']
         room_id = request.form['room_id']
-        new_booking = Booking(booking_number=booking_number, booking_date=booking_date, guest_id=guest_id, room_id=room_id)
+        new_booking = Booking(booking_number=booking_number, booking_date=booking_date, guest_id=guest_id,
+                              room_id=room_id)
         db.session.add(new_booking)
         db.session.commit()
         flash('Бронирование успешно добавлено!', 'success')
@@ -316,6 +377,7 @@ def add_booking():
     guests = Guest.query.all()
     rooms = HotelRooms.query.all()
     return render_template('add_booking.html', guests=guests, rooms=rooms)
+
 
 @app.route('/edit_booking/<int:id>', methods=['GET', 'POST'])
 @login_required
@@ -334,6 +396,7 @@ def edit_booking(id):
     rooms = HotelRooms.query.all()
     return render_template('edit_booking.html', booking=booking, guests=guests, rooms=rooms)
 
+
 @app.route('/delete_booking/<int:id>', methods=['GET', 'POST'])
 @login_required
 @role_required('admin')
@@ -346,11 +409,13 @@ def delete_booking(id):
         return redirect(url_for('list_bookings'))
     return render_template('delete_booking.html', booking=booking)
 
+
 @app.route('/employee_services')
 @login_required
 def list_employee_services():
     employee_services = EmployeeService.query.all()
     return render_template('list_employee_services.html', employee_services=employee_services)
+
 
 @app.route('/add_employee_service', methods=['GET', 'POST'])
 @login_required
@@ -368,6 +433,7 @@ def add_employee_service():
     services = Service.query.all()
     return render_template('add_employee_services.html', employees=employees, services=services)
 
+
 @app.route('/edit_employee_service/<int:employee_id>/<int:service_id>', methods=['GET', 'POST'])
 @login_required
 @role_required('admin')
@@ -381,7 +447,9 @@ def edit_employee_service(employee_id, service_id):
         return redirect(url_for('list_employee_services'))
     employees = Employee.query.all()
     services = Service.query.all()
-    return render_template('edit_employee_services.html', employee_service=employee_service, employees=employees, services=services)
+    return render_template('edit_employee_services.html', employee_service=employee_service, employees=employees,
+                           services=services)
+
 
 @app.route('/delete_employee_service/<int:employee_id>/<int:service_id>', methods=['GET', 'POST'])
 @login_required
