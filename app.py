@@ -188,6 +188,65 @@ def dataframe_to_csv_response(df, filename):
     )
     return response
 
+@app.route('/sales')
+@login_required
+def sales_list():
+    sales = Sale.query.all()
+    return render_template('sales.html', sales=sales)
+
+
+@app.route('/edit_sale/<int:sale_id>', methods=['GET', 'POST'])
+@login_required
+def edit_sale(sale_id):
+    sale = Sale.query.get_or_404(sale_id)
+
+    if request.method == 'POST':
+        sale.transaction_id = request.form['transaction_id']
+        sale.sale_date = request.form['sale_date']
+        sale.guest_id = request.form['guest_id']
+        sale.sale_amount = request.form['sale_amount']
+        sale.payment_method = request.form['payment_method']
+        db.session.commit()
+        flash("Данные успещно обновлены")
+        return redirect(url_for('sales_list'))
+
+    guests = Guest.query.all()
+    return render_template('edit_sale.html', sale=sale, guests=guests)
+
+@app.route('/delete_sale/<int:sale_id>', methods=['GET'])
+def delete_sale(sale_id):
+    sale = Sale.query.get_or_404(sale_id)
+    db.session.delete(sale)
+    db.session.commit()
+    flash("Продажа успешно удалена")
+    return render_template('base.html')
+
+
+from flask import render_template, redirect, url_for, request
+
+
+@app.route('/add_sale', methods=['GET', 'POST'])
+@login_required
+def add_sale():
+    if request.method == 'POST':
+        transaction_id = request.form['transaction_id']
+        sale_date = request.form['sale_date']
+        guest_id = request.form['guest_id']
+        sale_amount = request.form['sale_amount']
+        payment_method = request.form['payment_method']
+
+        new_sale = Sale(transaction_id=transaction_id, sale_date=sale_date,
+                        guest_id=guest_id, sale_amount=sale_amount,
+                        payment_method=payment_method)
+
+        db.session.add(new_sale)
+        db.session.commit()
+
+        return redirect(url_for('sales_list'))
+
+    guests = Guest.query.all()
+    return render_template('add_sale.html', guests=guests)
+
 
 @app.route('/export_csv', methods=['POST', 'GET'])
 @login_required

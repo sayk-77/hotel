@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Добавить продажу</h2>
+<form method="POST">
+  <label for="transaction_id">Transaction ID:</label>
+  <input type="text" id="transaction_id" name="transaction_id" required><br><br>
+
+  <label for="sale_date">Sale Date:</label>
+  <input type="date" id="sale_date" name="sale_date" required><br><br>
+
+  <label for="guest_id">Guest:</label>
+  <select id="guest_id" name="guest_id" required>
+    {% for guest in guests %}
+    <option value="{{ guest.id }}">{{ guest.first_name }} {{ guest.last_name }}</option>
+    {% endfor %}
+  </select><br><br>
+
+  <label for="sale_amount">Sale Amount:</label>
+  <input type="text" id="sale_amount" name="sale_amount" required><br><br>
+
+  <label for="payment_method">Payment Method:</label>
+  <input type="text" id="payment_method" name="payment_method" required><br><br>
+
+  <button type="submit">Добавить продажу</button>
+</form>
+{% endblock %}

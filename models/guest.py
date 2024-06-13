@@ -8,5 +8,6 @@ class Guest(db.Model):
     contact_info = db.Column(db.String(100))
     country = db.Column(db.String(50))
     document = db.Column(db.String(50))
-    check_in_out_date = db.Column(db.Date)
+    check_in_date = db.Column(db.Date, nullable=False)
+    check_out_date = db.Column(db.Date, nullable=False)
     bookings = db.relationship('Booking', backref='guest', lazy=True)

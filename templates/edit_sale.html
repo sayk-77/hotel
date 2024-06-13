@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Редактировать продажу</h2>
+<form method="POST">
+  <label for="transaction_id">Номер операции:</label>
+  <input type="text" id="transaction_id" name="transaction_id" value="{{ sale.transaction_id }}" required><br><br>
+
+  <label for="sale_date">Дата продажи:</label>
+  <input type="date" id="sale_date" name="sale_date" value="{{ sale.sale_date }}" required><br><br>
+
+  <label for="guest_id">ID гостя:</label>
+  <select id="guest_id" name="guest_id" required>
+    {% for guest in guests %}
+    <option value="{{ guest.id }}">{{ guest.first_name }}{{ guest.last_name }}</option>
+    {% endfor %}
+  </select><br><br>
+
+  <label for="sale_amount">Сумма продажи:</label>
+  <input type="text" id="sale_amount" name="sale_amount" value="{{ sale.sale_amount }}" required><br><br>
+
+  <label for="payment_method">Платежный метод:</label>
+  <input type="text" id="payment_method" name="payment_method" value="{{ sale.payment_method }}" required><br><br>
+
+  <button type="submit">Сохранить изменения</button>
+</form>
+{% endblock %}
