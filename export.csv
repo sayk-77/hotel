@@ -1,4 +1,4 @@
-id,booking_number,booking_date,guest_id,room_id
-4,B001,2023-05-01,7,4
-5,B002,2023-06-10,8,5
-6,B003,2023-07-20,9,6
+id,first_name,last_name,contact_info,country,document,check_in_out_date
+7,Анна,Смирнова,smirnova@example.com,Россия,Паспорт,2023-05-01
+8,Ольга,Попова,popova@example.com,Россия,Водительские права,2023-06-10
+9,Дмитрий,Соколов,sokolov@example.com,Россия,Военный билет,2023-07-20

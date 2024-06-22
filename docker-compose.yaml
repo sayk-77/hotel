@@ -1,0 +1,18 @@
+services:
+  db:
+    image: postgres
+    environment:
+      POSTGRES_USER: nikita
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: hotel
+    ports:
+      - "5433:5432"
+
+  flask-app:
+    build: .
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgresql://nikita:root@db:5432/hotel

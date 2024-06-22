@@ -320,16 +320,47 @@ def add_guest():
         last_name = request.form['last_name']
         contact_info = request.form['contact_info']
         country = request.form['country']
-        id_document = request.form['id_document']
+        document = request.form['document']
         check_in_out_date = request.form['check_in_out_date']
         new_guest = Guest(first_name=first_name, last_name=last_name, contact_info=contact_info, country=country,
-                          id_document=id_document, check_in_out_date=check_in_out_date)
+                          document=document, check_in_out_date=check_in_out_date)
         db.session.add(new_guest)
         db.session.commit()
         flash('Гость успешно добавлен!', 'success')
         return redirect(url_for('list_guests'))
     return render_template('add_guest.html')
 
+
+@app.route('/list_rooms')
+@login_required
+def list_rooms():
+    rooms = HotelRooms.query.all()
+    return render_template('list_room.html', rooms=rooms)
+
+
+
+@app.route('/add_room', methods=['GET', 'POST'])
+@login_required
+@role_required('admin')
+def add_room():
+    if request.method == 'POST':
+        room_number = request.form['room_number']
+        new_room = HotelRooms(room_number=room_number)
+        db.session.add(new_room)
+        db.session.commit()
+        flash('Комната успешно добавлена!', 'success')
+        return redirect(url_for('list_rooms'))
+    return render_template('add_room.html')
+
+@app.route('/delete_room/<int:room_id>', methods=['GET', 'POST'])
+def delete_room(room_id):
+    room = HotelRooms.query.get_or_404(room_id)
+    if request.method == 'POST':
+        db.session.delete(room)
+        db.session.commit()
+        flash('Комната удалена!', 'success')
+        return redirect(url_for('list_rooms'))
+    return render_template('delete_room.html', room=room)
 
 @app.route('/edit_guest/<int:id>', methods=['GET', 'POST'])
 @login_required
@@ -526,4 +557,4 @@ def delete_employee_service(employee_id, service_id):
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
-    app.run(host="192.168.0.105", port=5000)
+    app.run(host="0.0.0.0", port=5000)

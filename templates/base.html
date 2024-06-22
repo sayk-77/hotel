@@ -35,6 +35,7 @@
             <a href="{{ url_for('list_bookings') }}">Бронирования</a>
             <a href="{{ url_for('list_employee_services') }}">История услуг</a>
             <a href="{{ url_for('sales_list') }}">Продажи</a>
+            <a href="{{ url_for('list_rooms') }}">Комнаты</a>
             {% if current_user.is_authenticated and current_user.role.name == 'admin' %}
                 <a href="{{ url_for('add_employee') }}">Добавить сотрудника</a>
                 <a href="{{ url_for('add_guest') }}">Добавить гостя</a>
@@ -43,6 +44,7 @@
                 <a href="{{ url_for('add_employee_service') }}">Добавить историю услуг</a>
                 <a href="{{ url_for('add_user') }}">Добавить пользователя</a>
                 <a href="{{ url_for('add_sale') }}">Добавить продажу</a>
+                <a href="{{ url_for('add_room') }}">Добавить комнату</a>
                 <a href="{{ url_for('list_users') }}">Пользователи</a>
             {% endif %}
             <a href="{{ url_for('export_csv') }}">Поиск</a>
