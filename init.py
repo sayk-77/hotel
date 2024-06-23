@@ -12,13 +12,17 @@ with app.app_context():
         employee_role = Role(name='employee')
         db.session.add(employee_role)
 
-    admin = User(username='admin', role=admin_role)
-    admin.set_password('adminpassword')
-    db.session.add(admin)
+    admin = User.query.filter_by(username='admin').first()
+    if not admin:
+        admin = User(username='admin', role=admin_role)
+        admin.set_password('adminpassword')
+        db.session.add(admin)
 
-    employee = User(username='employee', role=employee_role)
-    employee.set_password('employeepassword')
-    db.session.add(employee)
+    employee = User.query.filter_by(username='employee').first()
+    if not employee:
+        employee = User(username='employee', role=employee_role)
+        employee.set_password('employeepassword')
+        db.session.add(employee)
 
     db.session.commit()
     print("Admin and employee users created successfully.")
