@@ -5,8 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="554c19c6-de00-4445-88c1-f0c9ddfb2d00" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/readme.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/init.py" beforeDir="false" afterPath="$PROJECT_DIR$/init.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,7 +77,7 @@
       <recent name="$PROJECT_DIR$/init" />
     </key>
   </component>
-  <component name="RunManager" selected="Docker.docker-compose.yaml: Compose Deployment">
+  <component name="RunManager" selected="Docker.docker-compose.yaml.flask-app: Compose Deployment">
     <configuration name="Flask (app.py)" type="Python.FlaskServer" temporary="true" nameIsGenerated="true">
       <module name="Hotel" />
       <option name="target" value="$PROJECT_DIR$/app.py" />
@@ -167,9 +167,9 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Docker.docker-compose.yaml.flask-app: Compose Deployment" />
         <item itemvalue="Docker.docker-compose.yaml: Compose Deployment" />
         <item itemvalue="Flask server.Flask (app.py)" />
-        <item itemvalue="Docker.docker-compose.yaml.flask-app: Compose Deployment" />
         <item itemvalue="Docker.docker-compose.yaml.db: Compose Deployment" />
         <item itemvalue="Docker.Dockerfile" />
       </list>
@@ -207,6 +207,8 @@
       <workItem from="1719160380361" duration="2394000" />
       <workItem from="1719163150243" duration="471000" />
       <workItem from="1719163832552" duration="103000" />
+      <workItem from="1719164172111" duration="155000" />
+      <workItem from="1719165441166" duration="622000" />
     </task>
     <servers />
   </component>
