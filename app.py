@@ -259,7 +259,7 @@ def export_csv():
         df = pd.DataFrame(results).transpose()
         df.columns = columns
 
-        df.to_csv('export.csv', index=False)
+        df.to_csv('export.csv', encoding='utf-8-sig', index=False)
 
         return send_file('export.csv', as_attachment=True)
 

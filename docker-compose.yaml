@@ -1,18 +1,28 @@
 services:
   db:
-    image: postgres
+    image: postgres:latest
+    restart: always
     environment:
       POSTGRES_USER: nikita
       POSTGRES_PASSWORD: root
       POSTGRES_DB: hotel
-    ports:
-      - "5433:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U nikita -d hotel"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   flask-app:
-    build: .
-    ports:
-      - "5000:5000"
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     environment:
       DATABASE_URL: postgresql://nikita:root@db:5432/hotel
+    ports:
+      - "5000:5000"
+    command:
+      bash -c "flask db upgrade && python init.py && python app.py"
